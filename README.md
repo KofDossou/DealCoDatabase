@@ -11,7 +11,6 @@ A database creation of  DealCo. relational diagram using PL/SQL
 * Subqueries and correlated queries
 * Advanced SQL JOIN operator syntax
 * Relational set operators UNION,UNION,ALL,INTERSECT and MINUS
-
-Need
- *Unix Shell
- *Oracle Server
+ Need
+ * Unix Shell
+ * Oracle Server
