@@ -10,7 +10,8 @@ A database creation of  DealCo. relational diagram using PL/SQL
 * SQL functions to manipulate dates,strings and other data
 * Subqueries and correlated queries
 * Advanced SQL JOIN operator syntax
-* Relational set operators UNION,UNION,ALL,INTERSECT and MINUS
- Need
+* Relational set operators UNION,UNION,ALL,INTERSECT and MINUS 
+
+Need
  * Unix Shell
  * Oracle Server
