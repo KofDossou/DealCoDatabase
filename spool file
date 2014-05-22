@@ -1,0 +1,1971 @@
+
+/***************************************/
+/*      NATURAL JOIN results         ***/
+/*                                   ***/
+/*                                    */
+/***************************************/
+SQL> SELECT CUS_CODE, CUS_LNAME, INV_NUMBER, INV_DATE
+  2  FROM CUSTOMER NATURAL JOIN INVOICE;
+
+  CUS_CODE CUS_LNAME       INV_NUMBER INV_DATE
+---------- --------------- ---------- ---------
+     10011 Dunne                 1008 17-JAN-12
+     10011 Dunne                 1004 17-JAN-12
+     10011 Dunne                 1002 16-JAN-12
+     10012 Smith                 1003 16-JAN-12
+     10014 Orlando               1006 17-JAN-12
+     10014 Orlando               1001 16-JAN-12
+     10015 O'Brian               1007 17-JAN-12
+     10018 Farriss               1005 17-JAN-12
+     10020 Adjoa                 1028 16-JAN-13
+     10020 Adjoa                 1009 16-JAN-13
+     10021 Wushu                 1010 16-JAN-13
+
+  CUS_CODE CUS_LNAME       INV_NUMBER INV_DATE
+---------- --------------- ---------- ---------
+     10023 Matos                 1012 17-JAN-13
+     10024 Kodjo                 1013 17-JAN-13
+     10025 Koffi                 1014 17-JAN-13
+     10026 Orange                1015 17-JAN-13
+     10027 Teddy                 1025 17-JAN-13
+
+16 rows selected.
+
+
+/********************************/
+/* JOIN USING results          **/
+/*                             ***/
+/*                             */                                                                                         
+/******************************/
+
+
+SQL> SELECT INV_NUMBER, P_CODE, P_DESCRIPT, LINE_UNITS, LINE_PRICE
+  2  FROM INVOICE JOIN LINE USING (INV_NUMBER)
+  3  JOIN PRODUCT USING (P_CODE);
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1001 13-Q2/P2   7.25-in. pwr. saw blade                      1      14.99
+      1001 23109-HB   Claw hammer                                  1       9.95
+      1002 54778-2T   Rat-tail file, 1/8-in. fine                  2       4.99
+      1003 2238/QPD   BD cordless drill, 1/2-in.                   1      38.95
+      1003 1546-QQ2   Hrd. cloth, 1/4-in., 2x50                    1      39.95
+      1003 13-Q2/P2   7.25-in. pwr. saw blade                      5      14.99
+      1004 54778-2T   Rat-tail file, 1/8-in. fine                  3       4.99
+      1004 23109-HB   Claw hammer                                  2       9.95
+      1005 PVC23DRT   PVC pipe, 3.5-in., 8-ft                     12       5.87
+      1006 SM-18277   1.25-in. metal screw, 25                     3       6.99
+      1006 2232/QTY   BD jigsaw, 12-in. blade                      1     109.92
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1006 23109-HB   Claw hammer                                  1       9.95
+      1006 89-WRE-Q   Hicut chain saw, 16 in.                      1     256.99
+      1007 13-Q2/P2   7.25-in. pwr. saw blade                      2      14.99
+      1007 54778-2T   Rat-tail file, 1/8-in. fine                  1       4.99
+      1008 PVC23DRT   PVC pipe, 3.5-in., 8-ft                      5       5.87
+      1008 WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh          3     119.95
+      1008 23109-HB   Claw hammer                                  1       9.95
+      1009 13-Q2/P2   7.25-in. pwr. saw blade                      1      14.99
+      1010 23109-HB   Claw hammer                                  1       9.95
+      1012 54778-2T   Rat-tail file, 1/8-in. fine                  2       4.99
+      1013 2238/QPD   BD cordless drill, 1/2-in.                   1      38.95
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1014 1546-QQ2   Hrd. cloth, 1/4-in., 2x50                    1      39.95
+      1015 PVC23DRT   PVC pipe, 3.5-in., 8-ft                      5      14.99
+      1010 89-WRE-Q   Hicut chain saw, 16 in.                      3       4.99
+      1015 WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh          2       9.95
+
+26 rows selected.
+
+
+/***************************/
+/*  JOIN ON results         */                                                      
+/*                        */                                                                                           
+/*                        */                                                                                           
+/*************************/
+SQL> SELECT INVOICE.INV_NUMBER, PRODUCT.P_CODE, P_DESCRIPT, LINE_UNITS, LINE_PRICE
+  2  FROM INVOICE JOIN LINE ON INVOICE.INV_NUMBER = LINE.INV_NUMBER
+  3   JOIN PRODUCT ON LINE.P_CODE = PRODUCT.P_CODE;
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1001 13-Q2/P2   7.25-in. pwr. saw blade                      1      14.99
+      1001 23109-HB   Claw hammer                                  1       9.95
+      1002 54778-2T   Rat-tail file, 1/8-in. fine                  2       4.99
+      1003 2238/QPD   BD cordless drill, 1/2-in.                   1      38.95
+      1003 1546-QQ2   Hrd. cloth, 1/4-in., 2x50                    1      39.95
+      1003 13-Q2/P2   7.25-in. pwr. saw blade                      5      14.99
+      1004 54778-2T   Rat-tail file, 1/8-in. fine                  3       4.99
+      1004 23109-HB   Claw hammer                                  2       9.95
+      1005 PVC23DRT   PVC pipe, 3.5-in., 8-ft                     12       5.87
+      1006 SM-18277   1.25-in. metal screw, 25                     3       6.99
+      1006 2232/QTY   BD jigsaw, 12-in. blade                      1     109.92
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1006 23109-HB   Claw hammer                                  1       9.95
+      1006 89-WRE-Q   Hicut chain saw, 16 in.                      1     256.99
+      1007 13-Q2/P2   7.25-in. pwr. saw blade                      2      14.99
+      1007 54778-2T   Rat-tail file, 1/8-in. fine                  1       4.99
+      1008 PVC23DRT   PVC pipe, 3.5-in., 8-ft                      5       5.87
+      1008 WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh          3     119.95
+      1008 23109-HB   Claw hammer                                  1       9.95
+      1009 13-Q2/P2   7.25-in. pwr. saw blade                      1      14.99
+      1010 23109-HB   Claw hammer                                  1       9.95
+      1012 54778-2T   Rat-tail file, 1/8-in. fine                  2       4.99
+      1013 2238/QPD   BD cordless drill, 1/2-in.                   1      38.95
+
+INV_NUMBER P_CODE     P_DESCRIPT                          LINE_UNITS LINE_PRICE
+---------- ---------- ----------------------------------- ---------- ----------
+      1014 1546-QQ2   Hrd. cloth, 1/4-in., 2x50                    1      39.95
+      1015 PVC23DRT   PVC pipe, 3.5-in., 8-ft                      5      14.99
+      1010 89-WRE-Q   Hicut chain saw, 16 in.                      3       4.99
+      1015 WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh          2       9.95
+
+26 rows selected.
+
+
+
+/*********************************/
+/*   LEFT JOIN Results           */                                                  
+/*                              */                                                                                     
+/*                              */                                                                                      
+/*********************************/
+SQL> SELECT P_CODE, VENDOR.V_CODE, V_NAME
+  2  FROM VENDOR LEFT JOIN PRODUCT ON VENDOR.V_CODE = PRODUCT.V_CODE;
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+11QER/31        25595 Rubicon Systems
+13-Q2/P2        21344 Gomez Bros.
+14-Q1/L3        21344 Gomez Bros.
+1546-QQ2        23119 Randsets Ltd.
+1558-QW1        23119 Randsets Ltd.
+2232/QTY        24288 ORDVA, Inc.
+2232/QWE        24288 ORDVA, Inc.
+2238/QPD        25595 Rubicon Systems
+23109-HB        21225 Bryson, Inc.
+54778-2T        21344 Gomez Bros.
+89-WRE-Q        24288 ORDVA, Inc.
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+SM-18277        21225 Bryson, Inc.
+SW-23116        21231 DE Supply
+WR3/TT3         25595 Rubicon Systems
+11KER/31        25595 Rubicon Systems
+13-T2/P2        21344 Gomez Bros.
+14-B1/L3        21344 Gomez Bros.
+1546-OQ2        23119 Randsets Ltd.
+1558-AW1        23119 Randsets Ltd.
+2232/RTY        24288 ORDVA, Inc.
+2232/MWE        24288 ORDVA, Inc.
+2238/SPD        25595 Rubicon Systems
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+                21345 Gogowo Bros.
+                21290 YE Supply
+                21233 SuperLook, Inc.
+                21226 SuperLoo, Inc.
+                21227 koffi, Inc.
+                25501 Damal Supplies
+                24005 Brack Bros.
+                25443 BK, Inc.
+                22567 Dome Supply
+                23130 RandO Ltd.
+                24004 Brackman Bros.
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+                24289 OVA, Inc.
+                22568 Domemiquez Supply
+
+35 rows selected.
+
+
+/******************************/
+/*  RIGHT JOIN Results        */                                                     
+/*                            */                                                                                       
+/*                            */                                                                                        
+/******************************/
+
+SQL> SELECT P_CODE, VENDOR.V_CODE, V_NAME
+  2  FROM VENDOR RIGHT JOIN PRODUCT ON VENDOR.V_CODE = PRODUCT.V_CODE;
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+SM-18277        21225 Bryson, Inc.
+23109-HB        21225 Bryson, Inc.
+SW-23116        21231 DE Supply
+14-B1/L3        21344 Gomez Bros.
+13-T2/P2        21344 Gomez Bros.
+54778-2T        21344 Gomez Bros.
+14-Q1/L3        21344 Gomez Bros.
+13-Q2/P2        21344 Gomez Bros.
+1558-AW1        23119 Randsets Ltd.
+1546-OQ2        23119 Randsets Ltd.
+1558-QW1        23119 Randsets Ltd.
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+1546-QQ2        23119 Randsets Ltd.
+2232/MWE        24288 ORDVA, Inc.
+2232/RTY        24288 ORDVA, Inc.
+89-WRE-Q        24288 ORDVA, Inc.
+2232/QWE        24288 ORDVA, Inc.
+2232/QTY        24288 ORDVA, Inc.
+2238/SPD        25595 Rubicon Systems
+11KER/31        25595 Rubicon Systems
+WR3/TT3         25595 Rubicon Systems
+2238/QPD        25595 Rubicon Systems
+11QER/31        25595 Rubicon Systems
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+PVC23DRT
+23114-AA
+
+24 rows selected.
+
+
+/********************************/
+/*  FULL JOIN Results         ***/
+/*                             */
+/*******************************/
+
+SQL> SELECT P_CODE, VENDOR.V_CODE, V_NAME
+  2  FROM VENDOR FULL JOIN PRODUCT ON VENDOR.V_CODE = PRODUCT.V_CODE;
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+11QER/31        25595 Rubicon Systems
+13-Q2/P2        21344 Gomez Bros.
+14-Q1/L3        21344 Gomez Bros.
+1546-QQ2        23119 Randsets Ltd.
+1558-QW1        23119 Randsets Ltd.
+2232/QTY        24288 ORDVA, Inc.
+2232/QWE        24288 ORDVA, Inc.
+2238/QPD        25595 Rubicon Systems
+23109-HB        21225 Bryson, Inc.
+23114-AA
+54778-2T        21344 Gomez Bros.
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+89-WRE-Q        24288 ORDVA, Inc.
+PVC23DRT
+SM-18277        21225 Bryson, Inc.
+SW-23116        21231 DE Supply
+WR3/TT3         25595 Rubicon Systems
+11KER/31        25595 Rubicon Systems
+13-T2/P2        21344 Gomez Bros.
+14-B1/L3        21344 Gomez Bros.
+1546-OQ2        23119 Randsets Ltd.
+1558-AW1        23119 Randsets Ltd.
+2232/RTY        24288 ORDVA, Inc.
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+2232/MWE        24288 ORDVA, Inc.
+2238/SPD        25595 Rubicon Systems
+                21345 Gogowo Bros.
+                21290 YE Supply
+                21233 SuperLook, Inc.
+                21226 SuperLoo, Inc.
+                21227 koffi, Inc.
+                25501 Damal Supplies
+                24005 Brack Bros.
+                25443 BK, Inc.
+                22567 Dome Supply
+
+P_CODE         V_CODE V_NAME
+---------- ---------- -----------------------------------
+                23130 RandO Ltd.
+                24004 Brackman Bros.
+                24289 OVA, Inc.
+                22568 Domemiquez Supply
+
+37 rows selected.
+
+
+/******************************************/
+/*   WHERE subquery example          ****/
+/*                                   ***/
+/*                                    */
+/**************************************/
+
+SQL> SELECT P_CODE, P_PRICE FROM PRODUCT
+  2  WHERE P_PRICE >= (SELECT AVG(P_PRICE) FROM PRODUCT);
+
+P_CODE        P_PRICE
+---------- ----------
+11QER/31       109.99
+2232/QTY       109.92
+2232/QWE        99.87
+89-WRE-Q       256.99
+WR3/TT3        119.95
+11KER/31       109.99
+2232/RTY       109.92
+2232/MWE        99.87
+
+8 rows selected.
+
+SQL> SELECT DISTINCT CUS_CODE, CUS_LNAME, CUS_FNAME
+  2  FROM CUSTOMER JOIN INVOICE USING (CUS_CODE)
+  3  JOIN LINE USING (INV_NUMBER)
+  4  JOIN PRODUCT USING (P_CODE)
+  5  WHERE P_CODE = (SELECT P_CODE FROM PRODUCT WHERE P_DESCRIPT = 'Claw hammer');
+
+
+  CUS_CODE CUS_LNAME       CUS_FNAME
+---------- --------------- ---------------
+     10011 Dunne           Leona
+     10014 Orlando         Myron
+     10021 Wushu           Paul
+
+
+/*********************************/
+/*   IN subquery example        */
+/*                             **/
+/*                              */
+/*********************************/
+SQL> SELECT DISTINCT CUS_CODE, CUS_LNAME, CUS_FNAME
+  2  FROM CUSTOMER      JOIN INVOICE USING (CUS_CODE)
+  3  JOIN LINE USING (INV_NUMBER)
+  4  JOIN PRODUCT USING (P_CODE)
+  5  WHERE P_CODE IN (SELECT P_CODE FROM PRODUCT
+  6  WHERE P_DESCRIPT LIKE '%hammer%' OR P_DESCRIPT LIKE '%saw%');
+
+  CUS_CODE CUS_LNAME       CUS_FNAME
+---------- --------------- ---------------
+     10012 Smith           Kathy
+     10011 Dunne           Leona
+     10014 Orlando         Myron
+     10021 Wushu           Paul
+     10015 O'Brian         Amy
+     10020 Adjoa           Alfred
+
+6 rows selected.
+
+/************************************/
+/*  HAVING subquery example        */                                             
+/*                                 */                                                                                  
+/*                                 */                                                                                   
+/***********************************/
+SQL> SELECT P_CODE, SUM(LINE_UNITS)
+  2  FROM LINE
+  3  GROUP BY P_CODE
+  4  HAVING SUM(LINE_UNITS) > (SELECT AVG(LINE_UNITS) FROM LINE);
+
+P_CODE     SUM(LINE_UNITS)
+---------- ---------------
+23109-HB                 6
+WR3/TT3                  5
+54778-2T                 8
+SM-18277                 3
+13-Q2/P2                 9
+89-WRE-Q                 4
+PVC23DRT                22
+
+7 rows selected.
+
+/***********************************************/
+/*   Multirow subquery operator example      ****/
+/*                                             **/
+/*                                             */
+/************************************************/
+SQL> SELECT P_CODE, P_QOH*P_PRICE
+  2  FROM PRODUCT
+  3  WHERE P_QOH*P_PRICE > ALL
+  4  (SELECT P_QOH*P_PRICE FROM PRODUCT
+  5  WHERE V_CODE IN (SELECT V_CODE FROM VENDOR WHERE V_STATE = 'FL'));
+
+P_CODE     P_QOH*P_PRICE
+---------- -------------
+89-WRE-Q         2826.89
+
+/*************************************/
+/* FROM subquery  example         ****/
+/*                                 **/
+/*                                  */
+/************************************/
+
+SQL> SELECT DISTINCT CUSTOMER.CUS_CODE, CUSTOMER.CUS_LNAME
+  2  FROM CUSTOMER,
+  3  (SELECT INVOICE.CUS_CODE
+  4  FROM INVOICE NATURAL JOIN LINE WHERE P_CODE = '13-Q2/P2') CP1, (SELECT INVOICE.CUS_CODE
+  5  FROM INVOICE NATURAL JOIN LINE WHERE P_CODE = '23109-HB') CP2
+  6  WHERE CUSTOMER.CUS_CODE = CP1.CUS_CODE AND
+  7  CP1.CUS_CODE = CP2.CUS_CODE;
+
+  CUS_CODE CUS_LNAME
+---------- ---------------
+     10014 Orlando
+
+
+/************************************/
+/*  INLINE subquery example     ****/
+/*                                 */
+/*                                 */                                                                                   
+/***********************************/
+SQL> SELECT P_CODE, P_PRICE, (SELECT AVG(P_PRICE) FROM PRODUCT) AS AVGPRICE,
+  2  P_PRICE-(SELECT AVG(P_PRICE) FROM PRODUCT) AS DIFF
+  3  FROM PRODUCT;
+
+P_CODE        P_PRICE   AVGPRICE       DIFF
+---------- ---------- ---------- ----------
+11QER/31       109.99 57.4120833 52.5779167
+13-Q2/P2        14.99 57.4120833 -42.422083
+14-Q1/L3        17.49 57.4120833 -39.922083
+1546-QQ2        39.95 57.4120833 -17.462083
+1558-QW1        43.99 57.4120833 -13.422083
+2232/QTY       109.92 57.4120833 52.5079167
+2232/QWE        99.87 57.4120833 42.4579167
+2238/QPD        38.95 57.4120833 -18.462083
+23109-HB         9.95 57.4120833 -47.462083
+23114-AA         14.4 57.4120833 -43.012083
+54778-2T         4.99 57.4120833 -52.422083
+
+P_CODE        P_PRICE   AVGPRICE       DIFF
+---------- ---------- ---------- ----------
+89-WRE-Q       256.99 57.4120833 199.577917
+PVC23DRT         5.87 57.4120833 -51.542083
+SM-18277         6.99 57.4120833 -50.422083
+SW-23116         8.45 57.4120833 -48.962083
+WR3/TT3        119.95 57.4120833 62.5379167
+11KER/31       109.99 57.4120833 52.5779167
+13-T2/P2        14.99 57.4120833 -42.422083
+14-B1/L3        17.49 57.4120833 -39.922083
+1546-OQ2        39.95 57.4120833 -17.462083
+1558-AW1        43.99 57.4120833 -13.422083
+2232/RTY       109.92 57.4120833 52.5079167
+
+P_CODE        P_PRICE   AVGPRICE       DIFF
+---------- ---------- ---------- ----------
+2232/MWE        99.87 57.4120833 42.4579167
+2238/SPD        38.95 57.4120833 -18.462083
+
+24 rows selected.
+
+
+/************************************************/
+/*  ANOTHER EXAMPLE OF INLINE subquery         */
+/*                                            */
+/*                                             */                                                                       
+/***********************************************/
+SQL> SELECT P_CODE, SUM(LINE_UNITS*LINE_PRICE) AS SALES,
+  2  (SELECT COUNT(*) FROM EMPLOYEE) AS ECOUNT,
+  3  SUM(LINE_UNITS*LINE_PRICE)/(SELECT COUNT(*) FROM EMPLOYEE) AS CONTRIB
+  4  FROM LINE
+  5  GROUP BY P_CODE;
+
+P_CODE          SALES     ECOUNT    CONTRIB
+---------- ---------- ---------- ----------
+24109-YB         19.99        23 .869130435
+23109-HB        49.75         23 2.16304348
+WR3/TT3        359.85         23 15.6456522
+William          9.95         23 .432608696
+54778-2T        29.94         23 1.30173913
+2238/QPD        38.95         23 1.69347826
+SM-18277        20.97         23  .91173913
+13-Q2/P2       119.92         23 5.21391304
+89-WRE-Q       256.99         23 11.1734783
+Taylor          14.95         23        .65
+2232/QTY       109.92         23 4.77913043
+PVC23DRT        99.79         23 4.33869565
+Clay            14.98         23 .651304348
+1546-QQ2        39.95         23 1.73695652
+
+14 rows selected.
+
+/******************************************/
+/*   Correlated subquery Example         */
+/*                                      */
+/*                                      */
+/*****************************************/
+SQL> SELECT INV_NUMBER, P_CODE, LINE_UNITS
+  2  FROM LINE LS
+  3  WHERE LS.LINE_UNITS >
+  4  (SELECT AVG(LINE_UNITS)
+  5  FROM LINE LA
+  6  WHERE LA.P_CODE = LS.P_CODE);
+
+
+INV_NUMBER P_CODE     LINE_UNITS
+---------- ---------- ----------
+      1003 13-Q2/P2            5
+      1004 54778-2T            3
+      1004 23109-HB            2
+      1005 PVC23DRT           12
+      1008 WR3/TT3             3
+      1010 89-WRE-Q            3
+
+6 rows selected.
+
+
+SQL> SELECT INV_NUMBER, P_CODE, LINE_UNITS,
+  2  (SELECT AVG(LINE_UNITS) FROM LINE LX WHERE LX.P_CODE = LS.P_CODE) AS AVG
+  3  FROM LINE LS
+  4  WHERE LS.LINE_UNITS >
+  5  ( SELECT AVG(LINE_UNITS)
+  6  FROM LINE LA
+  7  WHERE LA.P_CODE = LS.P_CODE);
+
+INV_NUMBER P_CODE     LINE_UNITS        AVG
+---------- ---------- ---------- ----------
+      1003 13-Q2/P2            5       2.25
+      1004 54778-2T            3          2
+      1004 23109-HB            2        1.2
+      1005 PVC23DRT           12 7.33333333
+      1008 WR3/TT3             3        2.5
+      1010 89-WRE-Q            3          2
+
+6 rows selected.
+
+
+/**********************************************/
+/*  EXITS Correlated subquery Example        ***/
+/*                                           ***/
+/*                                           */
+/*********************************************/
+ 
+SQL> SELECT CUS_CODE, CUS_LNAME, CUS_FNAME
+  2  FROM CUSTOMER
+  3  WHERE EXISTS (SELECT CUS_CODE FROM INVOICE
+  4  WHERE INVOICE.CUS_CODE = CUSTOMER.CUS_CODE);
+
+  CUS_CODE CUS_LNAME       CUS_FNAME
+---------- --------------- ---------------
+     10014 Orlando         Myron
+     10011 Dunne           Leona
+     10012 Smith           Kathy
+     10018 Farriss         Anne
+     10015 O'Brian         Amy
+     10020 Adjoa           Alfred
+     10021 Wushu           Paul
+     10023 Matos           Claribel
+     10024 Kodjo           Maame
+     10025 Koffi           Dossou
+     10026 Orange          Jack
+
+  CUS_CODE CUS_LNAME       CUS_FNAME
+---------- --------------- ---------------
+     10027 Teddy           Osei
+
+12 rows selected.
+
+
+/*************************************************************************************************************************/
+If DealCo’s management wants to know how many customers are on both the CUSTOMER and CUSTOMER_2 lists,        **********/
+/*a UNION ALL query can be used to produce a relation that retains the duplicate rows. Therefore, the following query***/
+/*will keep all rows from both queries (including the duplicate rows)                                                 */
+/********************************************************************************************************************/
+
+SQL> spool finals.txt
+
+SQL> SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM
+  2  CUSTOMER
+  3  UNION
+  4  SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER_2;
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Adjoa           Alfred          A 615 934-2573
+Brown           James           G 615 297-1228
+Dunne           Leona           K 713 894-1238
+Enyonam         Dossou          W 615 894-2285
+Farriss         Anne            G 713 382-7185
+Hernan          Corlo           A 723 123-7654
+Hernandez       Corloe          j 723 123-7654
+Kodjo           Maame             615 222-1672
+Koffi           Dossou          E 713 708-3381
+Kuku            komu            l 413 694-1238
+Kukuli          kumu            Y 713 594-1238
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Matos           Claribel        F 615 894-2180
+McDowel         George            723 123-7768
+McDowelly       Georgery          723 123-7768
+O'Brian         Amy             B 713 442-3381
+Ololo           Paulo           k 615 794-2180
+Olowski         Paul            F 615 894-2180
+Orange          Jack            Y 615 697-1228
+Orlando         Myron             615 222-1672
+Ramas           Alfred          A 615 844-2573
+Smith           Kathy           W 615 894-2285
+Smith           Olette          K 615 297-3809
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Teddy           Osei            A 615 690-2556
+Terrel          Justine         h 615 322-8870
+Terrelin        Justinese       Z 615 922-8870
+Tir             Kha             g 723 123-9876
+Tirpin          Khaleed         g 723 123-9876
+Williams        George            615 290-2556
+Wushu           Paul            K 713 894-1238
+leonard         Steve           G 734 332-1789
+lewis           Marie           j 734 332-1789
+
+31 rows selected.
+
+/******************************/
+/*  UNION ALL QUERY         ***/
+/*                         **/
+/*                          */
+/****************************/
+ 
+SQL> SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER
+  2  UNION ALL
+  3  SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER_2;
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Ramas           Alfred          A 615 844-2573
+Dunne           Leona           K 713 894-1238
+Smith           Kathy           W 615 894-2285
+Olowski         Paul            F 615 894-2180
+Orlando         Myron             615 222-1672
+O'Brian         Amy             B 713 442-3381
+Brown           James           G 615 297-1228
+Williams        George            615 290-2556
+Farriss         Anne            G 713 382-7185
+Smith           Olette          K 615 297-3809
+Adjoa           Alfred          A 615 934-2573
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Wushu           Paul            K 713 894-1238
+Enyonam         Dossou          W 615 894-2285
+Matos           Claribel        F 615 894-2180
+Kodjo           Maame             615 222-1672
+Koffi           Dossou          E 713 708-3381
+Orange          Jack            Y 615 697-1228
+Teddy           Osei            A 615 690-2556
+Terrel          Justine         h 615 322-8870
+Olowski         Paul            F 615 894-2180
+Hernandez       Corloe          j 723 123-7654
+McDowel         George            723 123-7768
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Tirpin          Khaleed         g 723 123-9876
+lewis           Marie           j 734 332-1789
+Dunne           Leona           K 713 894-1238
+Terrelin        Justinese       Z 615 922-8870
+Ololo           Paulo           k 615 794-2180
+Hernan          Corlo           A 723 123-7654
+McDowelly       Georgery          723 123-7768
+Tir             Kha             g 723 123-9876
+leonard         Steve           G 734 332-1789
+Kukuli          kumu            Y 713 594-1238
+Kuku            komu            l 413 694-1238
+
+33 rows selected.
+
+
+/**************************************/
+/*   INTERSECT query Results       ****/
+/*                                  **/
+/*                                   */
+/************************************/
+SQL> SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM
+  2  CUSTOMER
+  3  INTERSECT
+  4  SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER_2;
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Dunne           Leona           K 713 894-1238
+Olowski         Paul            F 615 894-2180
+
+SQL>  SELECT CUS_CODE FROM CUSTOMER WHERE CUS_AREACODE = '615'
+  2   INTERSECT
+  3  SELECT DISTINCT CUS_CODE FROM INVOICE;
+
+  CUS_CODE
+----------
+     10012
+     10014
+     10020
+     10023
+     10024
+     10026
+     10027
+
+7 rows selected.
+
+/*********************************/
+/*  MINUS QUERY RESULT       ****/
+/*                            ***/
+/*                             */
+/*******************************/
+SQL> SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM
+  2  CUSTOMER
+  3  MINUS
+  4  SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER_2;
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Adjoa           Alfred          A 615 934-2573
+Brown           James           G 615 297-1228
+Enyonam         Dossou          W 615 894-2285
+Farriss         Anne            G 713 382-7185
+Kodjo           Maame             615 222-1672
+Koffi           Dossou          E 713 708-3381
+Matos           Claribel        F 615 894-2180
+O'Brian         Amy             B 713 442-3381
+Orange          Jack            Y 615 697-1228
+Orlando         Myron             615 222-1672
+Ramas           Alfred          A 615 844-2573
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Smith           Kathy           W 615 894-2285
+Smith           Olette          K 615 297-3809
+Teddy           Osei            A 615 690-2556
+Williams        George            615 290-2556
+Wushu           Paul            K 713 894-1238
+
+16 rows selected.
+
+SQL> SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER_2
+  2  MINUS
+  3  SELECT CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHONE FROM CUSTOMER;
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+Hernan          Corlo           A 723 123-7654
+Hernandez       Corloe          j 723 123-7654
+Kuku            komu            l 413 694-1238
+Kukuli          kumu            Y 713 594-1238
+McDowel         George            723 123-7768
+McDowelly       Georgery          723 123-7768
+Ololo           Paulo           k 615 794-2180
+Terrel          Justine         h 615 322-8870
+Terrelin        Justinese       Z 615 922-8870
+Tir             Kha             g 723 123-9876
+Tirpin          Khaleed         g 723 123-9876
+
+CUS_LNAME       CUS_FNAME       C CUS CUS_PHON
+--------------- --------------- - --- --------
+leonard         Steve           G 734 332-1789
+lewis           Marie           j 734 332-1789
+
+13 rows selected.
+
+SQL> SELECT CUS_CODE FROM CUSTOMER WHERE CUS_AREACODE = '615'
+  2  MINUS
+  3  SELECT DISTINCT CUS_CODE FROM INVOICE;
+
+
+  CUS_CODE
+----------
+     10010
+     10013
+     10016
+     10017
+     10019
+     10022
+
+6 rows selected.
+
+/*************************************/
+/*   INTERSECT alternative         **/
+/*                                 */
+/*                                 */
+/**********************************/
+SQL> SELECT CUS_CODE FROM CUSTOMER
+  2  WHERE CUS_AREACODE = '615' AND
+  3  CUS_CODE IN (SELECT DISTINCT CUS_CODE FROM INVOICE)
+  4  ;
+
+  CUS_CODE
+----------
+     10014
+     10012
+     10020
+     10023
+     10024
+     10026
+     10027
+
+7 rows selected.
+
+/***************************************/
+/*     MINUS alternative          ****/
+/*                               ***/
+/*                                */
+/*********************************/
+
+SQL> SELECT CUS_CODE FROM CUSTOMER
+  2  WHERE CUS_AREACODE = '615' AND
+  3  CUS_CODE NOT IN (SELECT DISTINCT CUS_CODE FROM INVOICE);
+
+  CUS_CODE
+----------
+     10019
+     10016
+     10017
+     10013
+     10010
+     10022
+
+6 rows selected.
+
+/*******************************************************************/
+/*   CREATING  a virtual table with CREATIVE VIEW COMMAND ****/
+/*                                                                **/
+/*                                                                 */
+/*****************************************************************/
+
+SQL>  CREATE VIEW PROCEGT50 AS
+  2   SELECT  P_DESCRIPT, P_QOH, P_PRICE
+  3   FROM PRODUCT
+  4   WHERE P_PRICE > 50.00;
+
+View created.
+
+SQL> SELECT * FROM  PROCEGT50;
+
+P_DESCRIPT                               P_QOH    P_PRICE
+----------------------------------- ---------- ----------
+Power painter, 15 psi., 3-nozzle             8     109.99
+BD jigsaw, 12-in. blade                      8     109.92
+BD jigsaw, 8-in. blade                       6      99.87
+Hicut chain saw, 16 in.                     11     256.99
+Steel matting, 4'x8'x1/6", .5" mesh         18     119.95
+Power painter, 15 psi., 3-nozzle             8     109.99
+BD jigsaw, 12-in. blade                      8     109.92
+BD jigsaw, 8-in. blade                       6      99.87
+
+8 rows selected.
+
+/***************************************************/
+/*   The PRODMASTER AND PRODSALES TABLES ***/
+/*                                                 */
+/*                                                 */
+/*                                                 */
+/****************************************************/
+SQL> start createtbl_prod;
+Table created.
+Table created.
+
+SQL> start loadtbl_prod;
+1 row created.
+1 row created.
+1 row created.
+1 row created.
+1 row created.
+
+
+UPDATE PRODMASTER, PRODSALES
+  2  SET PRODMASTER.PROD_QOH = PROD_QOH - PS_QTY
+  3  WHERE PRODUCT.PROD_ID = PRODSALES.PROD_ID;
+UPDATE PRODMASTER, PRODSALES
+
+SQL> select * from prodmaster;
+PROD PROD_DESC              PROD_QOH
+---- -------------------- ----------
+A123 SCREWS                       60
+BX34 NUTS                         37
+C583 BOLTS                        50
+
+
+
+/***********************************************/
+/*   The Oracle UPDATE error message ***/
+/*                                          **/
+/*                                           */
+/*********************************************/
+SQL> UPDATE PRODMASTER, PRODSALES
+  2  SET PRODMASTER.PROD_QOH = PROD_QOH - PS_QTY
+  3  WHERE PRODUCT.PROD_ID = PRODSALES.PROD_ID;
+UPDATE PRODMASTER, PRODSALES
+                 *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+/**************************************************/
+/*   Creating an updatable view in Oracle****/
+/*                                               ***/
+/*                                               */
+/************************************************/
+
+SQL> CREATE VIEW PSVUPD AS (
+  2  SELECT PRODMASTER.PROD_ID, PRODMASTER.PROD_QOH, PRODSALES.PS_QTY
+  3  FROM PRODMASTER, PRODSALES
+  4  WHERE PRODMASTER.PROD_ID = PRODSALES.PROD_ID);
+
+View Created
+
+SQL> SELECT * FROM PSVUPD;
+
+PROD     PS_QTY
+---- ----------
+A123          7
+BX34          3
+
+
+
+
+/************************************************************/
+/*  PRODMASTER table update, using an updatable vieW ****/
+/*                                                          **/
+/*                                                          */
+/***********************************************************/
+
+SQL> SELECT * FROM PRODMASTER;
+
+PROD PROD_DESC              PROD_QOH
+---- -------------------- ----------
+A123 SCREWS                       60
+BX34 NUTS                         37
+C583 BOLTS                        50
+
+SQL> SELECT * FROM PRODSALES;
+
+PROD     PS_QTY
+---- ----------
+A123          7
+BX34          3
+
+
+SQL> UPDATE PSVUPD
+2 SET PROD_QOH = PRODMASTER.PROD_QOH - PS_QTY
+
+2 rows updated
+
+SQL> SELECT * FROM PRODMASTER;
+
+PROD PROD_DESC              PROD_QOH
+---- -------------------- ----------
+A123 SCREWS                       60
+BX34 NUTS                         37
+C583 BOLTS                        50
+ 
+
+
+/*******************************/
+/* Oracle sequence          ****/
+/*                            **/
+/*                            */
+/******************************/
+SQL> CREATE SEQUENCE CUS_CODE_SEQ START WITH 20010 NOCACHE;
+
+Sequence created.
+
+SQL> CREATE SEQUENCE INV_NUMBER_SEQ START WITH 4010 NOCACHE
+  2  ;
+
+Sequence created.
+
+SQL> SELECT * FROM USER_SEQUENCES;
+
+SEQUENCE_NAME                   MIN_VALUE  MAX_VALUE INCREMENT_BY C O CACHE_SIZE
+------------------------------ ---------- ---------- ------------ - - ----------
+LAST_NUMBER
+-----------
+CUS_CODE_SEQ                            1 1.0000E+28            1 N N          0
+      20010
+
+INV_NUMBER_SEQ                          1 1.0000E+28            1 N N          0
+       4010
+
+/******************************************/
+/*    Oracle sequence eXAMPLE         ****/
+/*                                       */
+/*                                       */
+/*****************************************/
+SQL> INSERT INTO CUSTOMER
+  2  VALUES (CUS_CODE_SEQ.NEXTVAL, 'Connery', 'Sean', NULL, '615', '898-2007', 0.00);
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER WHERE CUS_CODE = 20010;
+
+  CUS_CODE CUS_LNAME       CUS_FNAME       C CUS CUS_PHON CUS_BALANCE
+---------- --------------- --------------- - --- -------- -----------
+     20010 Connery         Sean              615 898-2007           0
+
+
+SQL> INSERT INTO INVOICE
+  2  VALUES (INV_NUMBER_SEQ.NEXTVAL, 20010, SYSDATE);
+
+1 row created.
+
+SQL> SELECT * FROM INVOICE WHERE INV_NUMBER = 4010;
+
+INV_NUMBER   CUS_CODE INV_DATE
+---------- ---------- ---------
+      4010      20010 29-APR-13
+
+
+SQL> INSERT INTO LINE
+  2  VALUES (INV_NUMBER_SEQ.CURRVAL, 1,'13-Q2/P2', 1, 14.99);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete
+
+/**********************************************/
+/*   Anonymous PL/SQL block examples        **/
+/*                                           */
+/*                                            */
+/*********************************************/
+
+SQL> BEGIN
+  2  INSERT INTO VENDOR
+  3  VALUES (25678,'Microsoft Corp. ', 'Bill Gates','765','546-8484','WA','N');
+  4  END;
+  5  /
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUTPUT ON
+SQL>
+SQL> BEGIN
+  2  INSERT INTO VENDOR
+  3  VALUES (25772,'Clue Store', 'Issac Hayes', '456','323-2009', 'VA', 'N');
+  4  DBMS_OUTPUT.PUT_LINE('New Vendor Added!');
+  5  END;
+  6  /
+New Vendor Added!
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from vendor;
+
+    V_CODE V_NAME                              V_CONTACT       V_A V_PHONE  V_ V
+---------- ----------------------------------- --------------- --- -------- -- -
+     25678 Microsoft Corp.                     Bill Gates      765 546-8484 WA N
+     25772 Clue Store                          Issac Hayes     456 323-2009 VA N
+     21225 Bryson, Inc.                        Smithson        615 223-3234 TN Y
+     21226 SuperLoo, Inc.                      Flushing        904 215-8995 FL N
+     21231 DE Supply                           Singh           615 228-3245 TN Y
+     21344 Gomez Bros.                         Ortega          615 889-2546 KY N
+     22567 Dome Supply                         Smith           901 678-1419 GA N
+     23119 Randsets Ltd.                       Anderson        901 678-3998 GA Y
+     24004 Brackman Bros.                      Browning        615 228-1410 TN N
+     24288 ORDVA, Inc.                         Hakford         615 898-1234 TN Y
+     25443 BK, Inc.                            Smith           904 227-0093 FL N
+
+    V_CODE V_NAME                              V_CONTACT       V_A V_PHONE  V_ V
+---------- ----------------------------------- --------------- --- -------- -- -
+     25501 Damal Supplies                      Smythe          615 890-3529 TN N
+     25595 Rubicon Systems                     Orton           904 456-0092 FL Y
+     21227 koffi, Inc.                         kookutre        615 223-3234 TN Y
+     21233 SuperLook, Inc.                     Ampee           904 215-8995 FL N
+     21290 YE Supply                           Sunchu          615 228-3245 TN Y
+     21345 Gogowo Bros.                        Prempeh         615 889-2546 KY N
+     22568 Domemiquez Supply                   Smithey         901 678-1419 GA N
+     23130 RandO Ltd.                          Anders          901 678-3998 GA Y
+     24005 Brack Bros.                         Otega           815 228-1410 TN N
+     24289 OVA, Inc.                           Harry           715 898-1234 TN Y
+
+21 rows selected.
+
+SQL>
+
+/*************************************************************/
+/*   Anonymous PL/SQL block WITH VARIABLES AND LOOPS         **/
+/*                                                           ***/
+/*                                                           */
+/*************************************************************/
+
+SQL> DECLARE
+  2  W_P1 NUMBER(3) := 0;
+  3  W_P2 NUMBER(3) := 10;
+  4  W_NUM NUMBER(2) := 0;
+  5  BEGIN
+  6  WHILE W_P2 < 300 LOOP
+  7  SELECT COUNT(P_CODE) INTO W_NUM FROM PRODUCT
+  8  WHERE P_PRICE BETWEEN W_P1 AND W_P2;
+  9  DBMS_OUTPUT.PUT_LINE('There are ' || W_NUM || ' Products with price between ' || W_P1
+ 10  || ' and ' || W_P2);
+ 11  W_P1 := W_P2 + 1;
+ 12  W_P2 := W_P2 + 50;
+ 13  END LOOP;
+ 14  END;
+ 15  /
+There are 5 Products with price between 0 and 10
+There are 11 Products with price between 11 and 60
+There are 6 Products with price between 61 and 110
+There are 1 Products with price between 111 and 160
+There are 0 Products with price between 161 and 210
+There are 1 Products with price between 211 and 260
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+
+/****************/
+/*            **/
+/*  the product */
+/*   table      */                                               
+/****************/
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD P_MIN_ORDER INT;
+
+Table altered.
+
+
+SQL> ALTER TABLE PRODUCT
+  2  ADD P_REORDER INT DEFAULT 0;
+
+Table altered.
+
+
+SQL>  UPDATE PRODUCT
+  2  SET P_MIN_ORDER ='50'
+  3   WHERE P_CODE ='11QER/31'
+  4   OR P_CODE='14-Q1/L3';
+
+2 rows updated.
+
+SQL> UPDATE PRODUCT
+  2   SET P_MIN_ORDER ='25'
+  3  WHERE P_CODE ='23109-MB'
+  4  OR P_CODE='54778-2T'
+  5  ;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT
+  2   SET P_MIN_ORDER ='10'
+  3   WHERE P_CODE ='89-WRE-Q'
+  4   OR P_CODE ='WR3/TT3';
+
+2 rows updated.
+
+SQL>  UPDATE PRODUCT
+  2  SET P_MIN_ORDER ='50'
+  3   WHERE P_CODE ='PVC23DRT'
+  4   OR P_CODE ='SM-18277';
+
+2 rows updated.
+
+SQL> UPDATE PRODUCT
+  2  SET P_MIN_ORDER ='12'
+  3   WHERE P_CODE ='2238/QPD'
+  4  OR P_CODE ='23109-HB';
+
+2 rows updated.
+
+SQL> UPDATE PRODUCT
+  2  SET P_MIN_ORDER ='25'
+  3   WHERE P_CODE ='23109-HB'
+  4  ;
+
+1 row updated.
+
+SQL> SELECT * FROM PRODUCT;
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-11          8          5
+    109.99          0      25595          50          0
+
+13-Q2/P2   7.25-in. pwr. saw blade             13-DEC-11         32         15
+     14.99        .05      21344                      0
+
+14-Q1/L3   9.00-in. pwr. saw blade             13-NOV-11         18         12
+     17.49          0      21344          50          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+1546-QQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-12         15          8
+     39.95          0      23119                      0
+
+1558-QW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-12         23          5
+     43.99          0      23119                      0
+
+2232/QTY   BD jigsaw, 12-in. blade             30-DEC-11          8          5
+    109.92        .05      24288                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/QWE   BD jigsaw, 8-in. blade              24-DEC-11          6          5
+     99.87        .05      24288                      0
+
+2238/QPD   BD cordless drill, 1/2-in.          20-JAN-12         12          5
+     38.95        .05      25595          12          0
+
+23109-HB   Claw hammer                         20-JAN-12         23         10
+      9.95         .1      21225          25          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-12          8          5
+      14.4        .05                                 0
+
+54778-2T   Rat-tail file, 1/8-in. fine         15-DEC-11         43         20
+      4.99          0      21344          25          0
+
+89-WRE-Q   Hicut chain saw, 16 in.             07-FEB-12         11          5
+    256.99        .05      24288          10          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+PVC23DRT   PVC pipe, 3.5-in., 8-ft             20-FEB-11        188         75
+      5.87          0                     50          0
+
+SM-18277   1.25-in. metal screw, 25            01-MAR-12        172         75
+      6.99          0      21225          50          0
+
+SW-23116   2.5-in. wd. screw, 50               24-FEB-12        237        100
+      8.45          0      21231                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh 17-JAN-12         18          5
+    119.95         .1      25595          10          0
+
+11KER/31   Power painter, 15 psi., 3-nozzle    03-NOV-13          8          5
+    109.99          0      25595                      0
+
+13-T2/P2   7.25-in. pwr. saw blade             13-DEC-13         32         15
+     14.99        .05      21344                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+14-B1/L3   9.00-in. pwr. saw blade             13-NOV-13         18         12
+     17.49          0      21344                      0
+
+1546-OQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-13         15          8
+     39.95          0      23119                      0
+
+1558-AW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-13         23          5
+     43.99          0      23119                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/RTY   BD jigsaw, 12-in. blade             30-DEC-13          8          5
+    109.92        .05      24288                      0
+
+2232/MWE   BD jigsaw, 8-in. blade              24-DEC-13          6          5
+     99.87        .05      24288                      0
+
+2238/SPD   BD cordless drill, 1/2-in.          20-JAN-13         12          5
+     38.95        .05      25595                      0
+
+
+24 rows selected.
+
+
+ 
+/****************/
+/*    **/
+/*            **/
+/*            */                                               
+/****************/
+SQL> CREATE OR REPLACE TRIGGER TRG_PRODUCT_REORDER
+  2  AFTER INSERT OR UPDATE OF P_QOH ON PRODUCT
+  3  BEGIN
+SQL> CREATE OR REPLACE TRIGGER TRG_PRODUCT_REORDER
+  2  AFTER INSERT OR UPDATE OF P_QOH ON PRODUCT
+  3  BEGIN
+  4     UPDATE PRODUCT
+  5       SET P_REORDER = 1
+  6         WHERE P_QOH <= P_MIN;
+  7  END;
+  8  /
+
+Trigger created.
+
+/****************/
+/*               **/
+/*            **/
+/*            */                                               
+/****************/
+SQL> select * from product where P_code = '11QER/31';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-11          8          5
+    109.99          0      25595          50          0
+
+SQL> UPDATE PRODUCT
+  2  SEP P_MIN =4
+WHERE P_CODE ='11QER/31';
+
+5          0
+
+SQL> select * from product where P_code = '11QER/31';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09          8          4
+   109.99          0      25595          25          0
+
+
+/****************/
+/*               **/
+/*            **/
+/*            */                                               
+/****************/
+SQL> select * from product where p_code = '23114-QvE';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/QWE   BD jigsaw, 8-in. blade              24-DEC-11          6          5
+     99.87        .05      24288                      0
+
+1 rows selected
+
+SQL> SELECT * FROM PRODUCT WHERE P_CODE ='23114-QVE';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-QVE   sledge hammer, 12 lb,     15psi        24-DEC-09          6          5
+     99.87        .05      24288          15          0
+
+/****************/
+/*               **/
+/*            **/
+/*            */                                               
+/****************/
+SQL> CREATE OR REPLACE TRIGGER TRG_PRODUCT_p_REORDER
+  2  AFTER INSERT OR UPDATE OF P_QOH, P_MIN ON PRODUCT
+  3  BEGIN
+  4     UPDATE PRODUCT
+  5       SET P_REORDER = 1
+  6         WHERE P_QOH <= P_MIN;
+  7  END;
+  8  /
+
+ /****************/
+/*               **/
+/*            **/
+/*            */                                               
+/****************/
+> select * from product where p_code ='2314-AA';
+
+ P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-10          8         5
+      14.4        .05                     12          1
+
+SQL> UPDATE PRODUCT
+  2  SET P_MIN = 10
+  3  WHERE P_CODE = '2314-AA';
+
+1 rows updated.
+
+
+> select * from product where p_code ='2314-AA';
+
+ P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-10          8         10
+      14.4        .05                     12          1
+
+
+
+
+SQL> update product set p_qoh = P_qoh;
+
+
+16 rows updated.
+
+SQL> select * from Product where p_code = '11QER/31';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09         33          5
+    109.99          0      25595          25          0
+
+/****************/
+/*             **/
+/*            **/
+/*            */                                               
+/****************/
+SQL> select * from product where P_code = '11QER/31';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09          8          5
+    109.99          0      25595          25          0
+
+SQL> UPDATE PRODUCT
+   2 SET P_QOH =P_QOH * P_MIN_ORDER
+   3 where P_CODE ='11QER/31';
+1 row updated
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09          8          5
+    109.99          0      25595          25          0
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+
+SQL> CREATE OR REPLACE TRIGGER TRG_PRODUCT_REORDER
+  2  BEFORE INSERT OR UPDATE OF P_QOH, P_MIN ON PRODUCT
+  3  FOR EACH ROW
+  4  BEGIN
+  5     IF :NEW.P_QOH <= :NEW.P_MIN THEN
+  6     :NEW.P_REORDER := 1;
+  7     ELSE
+  8          :NEW.P_REORDER := 0;
+  9     END IF;
+ 10  END;
+ 11  /
+ 
+ Tigger created
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+SQL> SELECT * FROM PRODUCT;
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-11          8          5
+    109.99          0      25595          50          0
+
+13-Q2/P2   7.25-in. pwr. saw blade             13-DEC-11         32         15
+     14.99        .05      21344                      0
+
+14-Q1/L3   9.00-in. pwr. saw blade             13-NOV-11         18         12
+     17.49          0      21344          50          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+1546-QQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-12         15          8
+     39.95          0      23119                      0
+
+1558-QW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-12         23          5
+     43.99          0      23119                      0
+
+2232/QTY   BD jigsaw, 12-in. blade             30-DEC-11          8          5
+    109.92        .05      24288                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/QWE   BD jigsaw, 8-in. blade              24-DEC-11          6          5
+     99.87        .05      24288                      0
+
+2238/QPD   BD cordless drill, 1/2-in.          20-JAN-12         12          5
+     38.95        .05      25595          12          0
+
+23109-HB   Claw hammer                         20-JAN-12         23         10
+      9.95         .1      21225          25          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-12          8          5
+      14.4        .05                                 0
+
+54778-2T   Rat-tail file, 1/8-in. fine         15-DEC-11         43         20
+      4.99          0      21344          25          0
+
+89-WRE-Q   Hicut chain saw, 16 in.             07-FEB-12         11          5
+    256.99        .05      24288          10          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+PVC23DRT   PVC pipe, 3.5-in., 8-ft             20-FEB-11        188         75
+      5.87          0                     50          0
+
+SM-18277   1.25-in. metal screw, 25            01-MAR-12        172         75
+      6.99          0      21225          50          0
+
+SW-23116   2.5-in. wd. screw, 50               24-FEB-12        237        100
+      8.45          0      21231                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh 17-JAN-12         18          5
+    119.95         .1      25595          10          0
+
+11KER/31   Power painter, 15 psi., 3-nozzle    03-NOV-13          8          5
+    109.99          0      25595                      0
+
+13-T2/P2   7.25-in. pwr. saw blade             13-DEC-13         32         15
+     14.99        .05      21344                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+14-B1/L3   9.00-in. pwr. saw blade             13-NOV-13         18         12
+     17.49          0      21344                      0
+
+1546-OQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-13         15          8
+     39.95          0      23119                      0
+
+1558-AW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-13         23          5
+     43.99          0      23119                      0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/RTY   BD jigsaw, 12-in. blade             30-DEC-13          8          5
+    109.92        .05      24288                      0
+
+2232/MWE   BD jigsaw, 8-in. blade              24-DEC-13          6          5
+     99.87        .05      24288                      0
+
+2238/SPD   BD cordless drill, 1/2-in.          20-JAN-13         12          5
+     38.95        .05      25595                      0
+
+
+24 rows selected.
+
+SQL>
+
+
+
+SQL> update product set p_qoh = P_qoh;
+
+
+24 rows updated.
+
+SQL> select * from Product where p_code = '11QER/31';
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09         33          5
+    109.99          0      25595          25          0
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+SQL> CREATE OR REPLACE TRIGGER TRG_LINE_PROD
+  2  AFTER INSERT ON LINE
+  3  FOR EACH ROW
+  4  BEGIN
+  5     UPDATE PRODUCT
+  6       SET P_QOH = P_QOH - :NEW.LINE_UNITS
+  7              WHERE PRODUCT.P_CODE = :NEW.P_CODE;
+  8  END;
+  9  /
+
+Trigger created.
+
+/****************/
+/*             **/
+/*            **/
+/*            */                                               
+/***************/
+SQL> CREATE OR REPLACE TRIGGER TRG_LINE_CUS
+  2  AFTER INSERT ON LINE
+  3  FOR EACH ROW
+  4  DECLARE
+  5  W_CUS CHAR(5);
+  6  W_TOT NUMBER:= 0;    -- to compute total cost
+  7  BEGIN
+  8     -- this trigger fires up after an INSERT of a LINE
+  9     -- it will update the CUS_BALANCE in CUSTOMER
+ 10	
+ 11     -- 1) get the CUS_CODE
+ 12     SELECT CUS_CODE INTO W_CUS
+ 13       FROM INVOICE
+ 14        WHERE INVOICE.INV_NUMBER = :NEW.INV_NUMBER;
+ 15
+ 16     -- 2) compute the total of the current line
+ 17     W_TOT := :NEW.LINE_PRICE * :NEW.LINE_UNITS;
+ 18
+ 19     -- 3) Update the CUS_BALANCE in CUSTOMER
+ 20     UPDATE CUSTOMER
+ 21      SET CUS_BALANCE = CUS_BALANCE + W_TOT
+ 22       WHERE CUS_CODE = W_CUS;
+ 23
+ 24     /
+ 25
+ 26  END;
+ 27  /
+
+Trigger created.
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+. SQL> CREATE OR REPLACE PROCEDURE PRC_PROD_DISCOUNT
+  2  AS BEGIN
+  3     UPDATE PRODUCT
+ 4       SET P_DISCOUNT = P_DISCOUNT + .05
+  5         WHERE P_QOH >= P_MIN*2;
+  6     DBMS_OUTPUT.PUT_LINE ('* * Update finished * *');
+  7  END;
+  8  /
+
+Procedure created.
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+. SQL> select * from product;
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09         33          5
+    109.99          0      25595          25          0
+
+13-Q2/P2   7.25-in. pwr. saw blade             13-DEC-09         32         15
+     14.99        .05      21344          50          0
+
+14-Q1/L3   9.00-in. pwr. saw blade             13-NOV-09         18         12
+     17.49          0      21344          50          0
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+1546-QQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-10         15          8
+     39.95          0      23119          35          0
+
+1558-QW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-10         23          5
+     43.99          0      23119          25          0
+
+2232/QTY   B\D jigsaw, 12-in. blade            30-DEC-09          8          5
+    109.92        .05      24288          15          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/QWE   B\D jigsaw, 8-in. blade             24-DEC-09          6          5
+     99.87        .05      24288          15          0
+
+2238/QPD   B\D cordless drill, 1/2-in.         20-JAN-10         12          5
+     38.95        .05      25595          12          0
+
+23109-HB   Claw hammer                         20-JAN-10         23         10
+      9.95         .1      21225          25          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-10          8         10
+      14.4        .05                     12          1
+
+54778-2T   Rat-tail file, 1/8-in. fine         15-DEC-09         43         20
+      4.99          0      21344          25          0
+
+89-WRE-Q   Hicut chain saw, 16 in.             07-FEB-10         11          5
+    256.99        .05      24288          10          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+PVC23DRT   PVC pipe, 3.5-in., 8-ft             20-FEB-09        188         75
+      5.87          0                     50          0
+
+SM-18277   1.25-in. metal screw, 25            01-MAR-10        172         75
+      6.99          0      21225          50          0
+
+SW-23116   2.5-in. wd. screw, 50               24-FEB-10        237        100
+      8.45          0      21231         100          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh 17-JAN-10         18          5
+    119.95         .1      25595          10          0
+
+24 rows selected.
+
+SQL> exec prc_prod_discount;
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from product;
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+11QER/31   Power painter, 15 psi., 3-nozzle    03-NOV-09         33          5
+    109.99        .05      25595          25          0
+
+13-Q2/P2   7.25-in. pwr. saw blade             13-DEC-09         32         15
+     14.99         .1      21344          50          0
+
+14-Q1/L3   9.00-in. pwr. saw blade             13-NOV-09         18         12
+     17.49          0      21344          50          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+1546-QQ2   Hrd. cloth, 1/4-in., 2x50           15-JAN-10         15          8
+     39.95          0      23119          35          0
+
+1558-QW1   Hrd. cloth, 1/2-in., 3x50           15-JAN-10         23          5
+     43.99        .05      23119          25          0
+
+2232/QTY   B\D jigsaw, 12-in. blade            30-DEC-09          8          5
+    109.92        .05      24288          15          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+2232/QWE   B\D jigsaw, 8-in. blade             24-DEC-09          6          5
+     99.87        .05      24288          15          0
+
+2238/QPD   B\D cordless drill, 1/2-in.         20-JAN-10         12          5
+     38.95         .1      25595          12          0
+
+23109-HB   Claw hammer                         20-JAN-10         23         10
+      9.95        .15      21225          25          0
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+23114-AA   Sledge hammer, 12 lb.               02-JAN-10          8         10
+      14.4        .05                     12          1
+
+54778-2T   Rat-tail file, 1/8-in. fine         15-DEC-09         43         20
+      4.99        .05      21344          25          0
+
+89-WRE-Q   Hicut chain saw, 16 in.             07-FEB-10         11          5
+    256.99         .1      24288          10          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+PVC23DRT   PVC pipe, 3.5-in., 8-ft             20-FEB-09        188         75
+      5.87        .05                     50          0
+
+SM-18277   1.25-in. metal screw, 25            01-MAR-10        172         75
+      6.99        .05      21225          50          0
+SW-23116   2.5-in. wd. screw, 50               24-FEB-10        237        100
+      8.45        .05      21231         100          0
+
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+WR3/TT3    Steel matting, 4'x8'x1/6", .5" mesh 17-JAN-10         18          5
+    119.95        .15      25595          10          0
+
+
+24 rows selected.
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+SQL> CREATE OR REPLACE PROCEDURE PRC_PROD_DISCOUNT(WPI IN NUMBER) AS
+  2  BEGIN
+  3     IF ((WPI <= 0) OR (WPI >= 1)) THEN      -- validate WPI parameter
+  4             DBMS_OUTPUT.PUT_LINE('Error: Value must be greater than 0 and less than 1');
+  5     ELSE                            -- if value is greater than 0 and less than 1
+  6     UPDATE PRODUCT
+  7      SET P_DISCOUNT = P_DISCOUNT + WPI
+  8          WHERE P_QOH >= P_MIN*2;
+ 9     DBMS_OUTPUT.PUT_LINE ('* * Update finished * *');
+ 10     END IF;
+ 11  END;
+ 12  /
+
+Procedure created.
+
+ 
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+
+SQL> EXEC PRC_PROD_DISCOUNT(1.5);
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC PRC_PROD_DISCOUNT(.05);
+
+PL/SQL procedure successfully completed.
+
+
+/****************/
+/*            **/
+/*            **/
+/*            */                                               
+/***************/
+CREATE OR REPLACE PROCEDURE PRC_CUS_ADD
+  2  (W_LN IN VARCHAR, W_FN IN VARCHAR, W_INIT IN VARCHAR, W_AC IN VARCHAR, W_PH IN VARCHAR)
+  3  AS
+  4  BEGIN
+  5  -- note that the procedure uses the CUS_CODE_SEQ sequence created earlier
+  6  -- attribute names are required when not giving values for all table attributes
+  7     INSERT INTO CUSTOMER(CUS_CODE,CUS_LNAME, CUS_FNAME, CUS_INITIAL, CUS_AREACODE, CUS_PHO$
+  8            VALUES (CUS_CODE_SEQ.NEXTVAL, W_LN, W_FN, W_INIT, W_AC, W_PH);
+ 9     DBMS_OUTPUT.PUT_LINE ('Customer ' || W_LN || ', ' || W_FN || ' added.');
+ 10  END;
+ 11  /
+Procedure created.
+
+SQL> PL/SQL procedure successfully completed.
+SP2-0734: unknown command beginning "PL/SQL pro..." - rest of line ignored.
+SQL> exec prc_cus_add('Walker','James',NULL,'615','84-HORSE');
+
+PL/SQL procedure successfully completed.
+
+
+/****************/
+/*           **/
+/*            **/
+/*            */                                               
+/***************/
+SQL> CREATE OR REPLACE PROCEDURE PRC_INV_ADD (W_CUS_CODE IN VARCHAR2, W_DATE IN DATE)
+  2  AS BEGIN
+  3     INSERT INTO INVOICE
+  4            VALUES(INV_NUMBER_SEQ.NEXTVAL, W_CUS_CODE, W_DATE);
+  5     DBMS_OUTPUT.PUT_LINE('Invoice added');
+  6  END;
+
+ 7  /
+
+Procedure created.
+
+/****************/
+/*             **/
+/*            **/
+/*            */                                               
+/***************/
+SQL>  exec prc_inv_add(1, 20010,'09-APR-2010',1);
+
+SQL> INSERT INTO CUSTOMER
+  2  VALUES (CUS_CODE_SEQ.NEXTVAL, 'Connery', 'Sean', NULL, '615', '898-2007', 0.00);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER
+  2  VALUES (CUS_CODE_SEQ.NEXTVAL, 'Connery', 'Sean', NULL, '615', '898-2007', 0.00);
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER WHERE CUS_CODE = 20010;
+
+  CUS_CODE CUS_LNAME       CUS_FNAME       C CUS CUS_PHON CUS_BALANCE
+---------- --------------- --------------- - --- -------- -----------
+     20010 Connery         Sean              615 898-2007           0
+
+SQL> INSERT INTO INVOICE
+  2  VALUES (INV_NUMBER_SEQ.NEXTVAL, 20010, SYSDATE);
+
+SQL> exec prc_line_add(2,'23109-HB',1);
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from invoice where cus_code = 20010;
+
+INV_NUMBER   CUS_CODE INV_DATE
+---------- ---------- ---------
+      4011      20010 02-MAY-12
+      4013      20010 02-MAY-12
+      4014      20010 09-APR-10
+
+SQL> select * from product where p_code in('13-Q2/P2','23109-HB');
+
+P_CODE     P_DESCRIPT                          P_INDATE       P_QOH      P_MIN
+---------- ----------------------------------- --------- ---------- ----------
+   P_PRICE P_DISCOUNT     V_CODE P_MIN_ORDER  P_REORDER
+---------- ---------- ---------- ----------- ----------
+13-Q2/P2   7.25-in. pwr. saw blade             13-DEC-09         32         15
+     14.99        .05      21344          50          0
+
+23109-HB   Claw hammer                         20-JAN-10         23         10
+      9.95         .1      21225          25          0
