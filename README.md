@@ -1,4 +1,4 @@
-DealCoDatabase
+DealCoDatabase(Oracle)
 ==============
 
 A database creation of  DealCo. relational diagram using PL/SQL
