@@ -16,3 +16,5 @@ A database creation of  DealCo. relational diagram using PL/SQL
 Need
  *  Unix Shell
  *  Oracle Server
+
+![alt tag](http://url/to/img.png)
