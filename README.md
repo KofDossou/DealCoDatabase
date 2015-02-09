@@ -1,10 +1,13 @@
 DealCoDatabase(Oracle)
 ==============
+A fun database system  built for a pseuodo company called DealCo
 
-A database creation of  DealCo. relational diagram using PL/SQL
-* Creating tables from VIM
-* Loading tables from VIM
-* Drop table created in VIM
+Activities:
+==========
+Creating a  relational database for DealCo. using PL/SQL
+* Create tables in vim and load to SQL
+* Loading tables in vim and load to SQL
+* Drop table created in vim
 * Creating embedded SQL,Triggers,Stored Procedures
 * Create and use updatable views
 * SQL functions to manipulate dates,strings and other data
@@ -16,4 +19,4 @@ A database creation of  DealCo. relational diagram using PL/SQL
 Need
  *  Unix Shell
  *  Oracle Server
- 
+ *  Sqldeveloper
