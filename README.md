@@ -16,7 +16,8 @@ Creating a  relational database for DealCo. using PL/SQL
 * Relational set operators UNION,UNION,ALL,INTERSECT and MINUS 
 
 
-Need
+Tools:
+======
  *  Unix Shell
  *  Oracle Server
  *  Sqldeveloper
